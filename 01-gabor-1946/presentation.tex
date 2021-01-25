@@ -21,8 +21,7 @@
 \setbeameroption{show notes on second screen=right}
 %\setbeameroption{hide notes}
 
-\title{Gabor}
-\subtitle{Gabor}
+\title{Gabor's 1946 Theory of Communication}
 \author{Sevag Hanssian}
 \institute{MUMT 622, Winter 2021}
 \setbeamertemplate{navigation symbols}{}
@@ -34,7 +33,32 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Gabor}
+	\frametitle{Time-frequency resolution in the STFT}
+	\begin{figure}
+		\centering
+		\subfloat[Good time resolution, poor frequency resolution]{{\includegraphics[width=6cm]{./stft_small.png} }}
+		\subfloat[Good frequency resolution, poor time resolution]{{\includegraphics[width=6cm]{./stft_big.png} }}
+		\caption{STFT, small vs. big window}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Time-frequency resolution in the STFT}
+	\begin{figure}
+		\centering
+		\subfloat[Good time resolution, poor frequency resolution]{{\includegraphics[width=6cm]{./stft_small_zoomed.png} }}
+		\subfloat[Good frequency resolution, poor time resolution]{{\includegraphics[width=6cm]{./stft_big_zoomed.png} }}
+		\caption{STFT, small vs. big window}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Signals in time and frequency}
+	\begin{figure}
+		\centering
+		\includegraphics[width=6cm]{./gabor1.png}
+		\caption{Unit impulse (delta function) and infinite sine wave in time/frequency diagram\footfullcite{gabor1946}}
+	\end{figure}
 \end{frame}
 
 \end{document}
