@@ -33,6 +33,24 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Significance}
+	Outcomes of Gabor's 1946 paper, ``Theory of Communication''\footfullcite{gabor1946}:
+	\vspace{0.5em}
+	\begin{enumerate}
+		\item
+			First introduction of the time-frequency uncertainty principle, leading to interest in wavelets\footfullcite{homage1}
+		\item
+			First use of the STFT for analysis of speech\footfullcite{textbook1}
+			\begin{quote}
+			The earliest application of a local Fourier analysis was by Dennis Gabor to the analysis of speech
+			\end{quote}
+		\item
+			\vspace{-0.35em}
+			Signal representation with Gabor elementary functions (Gaussian-modulated sinusoids) to minimize time-frequency uncertainty
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Time-frequency resolution in the STFT}
 	\begin{figure}
 		\centering
@@ -53,11 +71,38 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Signals in time and frequency}
+	\frametitle{Time-frequency trade-off -- intuition}
 	\begin{figure}
 		\centering
-		\includegraphics[width=6cm]{./gabor1.png}
-		\caption{Unit impulse (delta function) and infinite sine wave in time/frequency diagram\footfullcite{gabor1946}}
+		\includegraphics[height=5.5cm]{./gabor2.png}
+		\caption{Improved frequency measurement over longer time intervals. The uncertainty in the frequency $\Delta f$ decreases as the measurement interval $\Delta t$ increases and vice versa\footfullcite{gabor2}}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Time-frequency tradeoff}
+	Property of the Fourier transform
+	\begin{figure}
+		\centering
+		\subfloat[Unit impulse vs. infinite sine wave\footfullcite{gabor1946}]{\includegraphics[width=4cm]{./gabor1.png}}
+		\hspace{0.2em}
+		\subfloat[Spread of a signal and its Fourier transform are inversely proportional\footfullcite{gabor2}]{\includegraphics[width=5cm]{./gabor3.png}}
+		\caption{Time vs. frequency}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Gabor's Uncertainty Principle}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Gabor's Uncertainty Principle, visual}
+	\begin{figure}
+		\centering
+		\subfloat{\includegraphics[height=4cm]{./tf-resolution2.png}}
+		\hspace{0.35em}
+		\subfloat{\includegraphics[height=4cm]{./tf-resolution.png}}
+		\caption{The most a signal can be localized in the Fourier domain is into rectangles of size $\Delta t\Delta f = 1$}
 	\end{figure}
 \end{frame}
 
