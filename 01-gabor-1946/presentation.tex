@@ -51,37 +51,58 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Time-frequency resolution in the STFT}
-	\begin{figure}
-		\centering
-		\subfloat[Good time resolution, poor frequency resolution]{{\includegraphics[width=6cm]{./stft_small.png} }}
-		\subfloat[Good frequency resolution, poor time resolution]{{\includegraphics[width=6cm]{./stft_big.png} }}
-		\caption{STFT, small vs. big window}
-	\end{figure}
+	\frametitle{Gabor's Uncertainty Principle}
+	\begin{columns}
+	    \begin{column}{0.48\textwidth}
+		Quantum physics:
+		    \[ x = y\]
+		(simple prose description)
+		Inherent limitation of the universe (as we know it)
+		Heisenberg, Copenhagen, Einstein mad
+	    \end{column}
+	    \begin{column}{0.48\textwidth}
+		Time-frequency: 
+		    \[ x = y \]
+		(simple prose description)
+		Limitation which arises from the Fourier transform\\
+		If we can find alternative representations (i.e. wavelets), this can be minimized
+	    \end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Time-frequency resolution in the STFT}
-	\begin{figure}
-		\centering
-		\subfloat[Good time resolution, poor frequency resolution]{{\includegraphics[width=6cm]{./stft_small_zoomed.png} }}
-		\subfloat[Good frequency resolution, poor time resolution]{{\includegraphics[width=6cm]{./stft_big_zoomed.png} }}
-		\caption{STFT, small vs. big window}
-	\end{figure}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Time-frequency trade-off -- intuition}
-	\begin{figure}
-		\centering
-		\includegraphics[height=5.5cm]{./gabor2.png}
-		\caption{Improved frequency measurement over longer time intervals. The uncertainty in the frequency $\Delta f$ decreases as the measurement interval $\Delta t$ increases and vice versa\footfullcite{gabor2}}
-	\end{figure}
+	\frametitle{Gabor's Uncertainty Principle -- lower bound}
+	$\Delta t \Delta f \ge 1, \frac{1}{2}, \frac{1}{4\pi}$
+	which is which?
 \end{frame}
 
 \begin{frame}
 	\frametitle{Time-frequency tradeoff}
-	Property of the Fourier transform
+	Gabor had become intrigued by the fact that, although the notion of frequency, strictly speaking, only applies to a harmonic signal of infinite duration, we nevertheless routinely speak of a time-varying frequency, for example, when we describe a siren, an FM signal, or a chirped wave-form.\footfullcite{korpel}
+	\begin{quote}
+		The foregoing solutions [of the Fourier transform], though unquestionably mathematically correct, are somewhat difficult to reconcile with our physical intuitions and our physical concepts of such variable frequency mechanisms as, for instance, the siren
+	\end{quote}
+	-- Carson (quoted by Gabor)
+	\begin{quote}
+		Gabor came to the conclusion that the difficulty lay in our mutually exclusive formulations of ``time analysis'' and ``frequency analysis'' ... he suggested a ``new method of analyzing signals in which time and frequency play symmetrical parts.''
+	\end{quote}
+\end{frame}
+
+\note{
+	\begin{itemize}
+		\item
+			this points to the origin of the wavelet and searching for alternative, non-linear representations of time-domain signals
+	\end{itemize}
+}
+
+\begin{frame}
+	\frametitle{Defeating the Gabor limit with non-linearity}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Time-frequency tradeoff, visual}
+	Arises from the linearity of the Fourier transform
 	\begin{figure}
 		\centering
 		\subfloat[Unit impulse vs. infinite sine wave\footfullcite{gabor1946}]{\includegraphics[width=4cm]{./gabor1.png}}
@@ -92,7 +113,12 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Gabor's Uncertainty Principle}
+	\frametitle{Time-frequency tradeoff, intuition}
+	\begin{figure}
+		\centering
+		\includegraphics[height=5.5cm]{./gabor2.png}
+		\caption{Improved frequency measurement over longer time intervals. The uncertainty in the frequency $\Delta f$ decreases as the measurement interval $\Delta t$ increases and vice versa\footfullcite{gabor2}}
+	\end{figure}
 \end{frame}
 
 \begin{frame}
@@ -104,6 +130,48 @@
 		\subfloat{\includegraphics[height=4cm]{./tf-resolution.png}}
 		\caption{The most a signal can be localized in the Fourier domain is into rectangles of size $\Delta t\Delta f = 1$}
 	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Gabor elementary functions}
+	minimizing area of the tf rectangle
+	gaussian-modulated sine waves
+	a asymptotic infinity, 0
+\end{frame}
+
+\begin{frame}
+	\frametitle{Gabor elementary functions}
+	relation to shanon
+\end{frame}
+
+\begin{frame}
+	\frametitle{Time-frequency resolution in the STFT}
+	Using default MATLAB spectrogram parameters\footfullcite{matlabspecgram} (Hamming window)
+	\begin{figure}
+		\vspace{-1em}
+		\centering
+		\subfloat[Good $\Delta t$, bad $\Delta f$]{{\includegraphics[width=6cm]{./stft_small.png} }}
+		\subfloat[Good $\Delta f$, bad $\Delta t$]{{\includegraphics[width=6cm]{./stft_big.png} }}
+		\caption{STFT, small vs. big window}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Time-frequency resolution in the STFT}
+	\begin{figure}
+		\centering
+		\subfloat[Good $\Delta t$, bad $\Delta f$]{{\includegraphics[width=6cm]{./stft_small_zoomed.png} }}
+		\subfloat[Good $\Delta f$, bad $\Delta t$]{{\includegraphics[width=6cm]{./stft_big_zoomed.png} }}
+		\caption{STFT, small vs. big window}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Gabor transform -- best possible TF resolution}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Problems with Gabor's atoms}
 \end{frame}
 
 \end{document}
