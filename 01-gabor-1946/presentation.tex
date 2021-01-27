@@ -51,66 +51,42 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Gabor's Uncertainty Principle}
-	\begin{columns}
-	    \begin{column}{0.48\textwidth}
-		Quantum physics:
-		    \[ x = y\]
-		(simple prose description)
-		Inherent limitation of the universe (as we know it)
-		Heisenberg, Copenhagen, Einstein mad
-	    \end{column}
-	    \begin{column}{0.48\textwidth}
-		Time-frequency: 
-		    \[ x = y \]
-		(simple prose description)
-		Limitation which arises from the Fourier transform\\
-		If we can find alternative representations (i.e. wavelets), this can be minimized
-	    \end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Gabor's Uncertainty Principle -- lower bound}
-	$\Delta t \Delta f \ge 1, \frac{1}{2}, \frac{1}{4\pi}$
-	which is which?
-\end{frame}
-
-\begin{frame}
-	\frametitle{Time-frequency tradeoff}
-	Gabor had become intrigued by the fact that, although the notion of frequency, strictly speaking, only applies to a harmonic signal of infinite duration, we nevertheless routinely speak of a time-varying frequency, for example, when we describe a siren, an FM signal, or a chirped wave-form.\footfullcite{korpel}
-	\begin{quote}
-		The foregoing solutions [of the Fourier transform], though unquestionably mathematically correct, are somewhat difficult to reconcile with our physical intuitions and our physical concepts of such variable frequency mechanisms as, for instance, the siren
-	\end{quote}
-	-- Carson (quoted by Gabor)
-	\begin{quote}
-		Gabor came to the conclusion that the difficulty lay in our mutually exclusive formulations of ``time analysis'' and ``frequency analysis'' ... he suggested a ``new method of analyzing signals in which time and frequency play symmetrical parts.''
-	\end{quote}
+	\frametitle{Heisenberg's Uncertainty Principle}
+	Heisenberg's uncertainty principle in quantum physics\footfullcite{hallm}:
+	    \[ \sigma_{x}\sigma_{p} \ge \frac{h}{4\pi} \]
+	    Heisenberg, 1927:
+	    \begin{quote}
+		    the more precisely the position [of an electron] is determined, the less precisely the momentum is known, and conversely
+	    \end{quote}
 \end{frame}
 
 \note{
 	\begin{itemize}
 		\item
-			this points to the origin of the wavelet and searching for alternative, non-linear representations of time-domain signals
+			in the world of quantum physics this is a core of the Copenhagen school, which Einstein disagreed with. this seems to be a fundamental limitation of the universe (as far as we know it)
 	\end{itemize}
 }
 
 \begin{frame}
-	\frametitle{Defeating the Gabor limit with non-linearity}
-	
+	\frametitle{Gabor's Uncertainty Principle}
+	Gabor's time-frequency uncertainty:
+	    \[ \sigma_{t}\sigma_{f} \ge \frac{1}{4\pi},\qquad\Delta t\Delta f \ge 1 \]
+	    Gabor, 1946:\footfullcite{gabor1946}
+	    \begin{quote}
+		    although we can carry out the analysis with any degree of accuracy in the time direction or frequency direction, we cannot carry it out simultaneously in both beyond a certain limit
+	    \end{quote}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Time-frequency tradeoff, visual}
-	Arises from the linearity of the Fourier transform
-	\begin{figure}
-		\centering
-		\subfloat[Unit impulse vs. infinite sine wave\footfullcite{gabor1946}]{\includegraphics[width=4cm]{./gabor1.png}}
-		\hspace{0.2em}
-		\subfloat[Spread of a signal and its Fourier transform are inversely proportional\footfullcite{gabor2}]{\includegraphics[width=5cm]{./gabor3.png}}
-		\caption{Time vs. frequency}
-	\end{figure}
-\end{frame}
+\note{
+	\begin{itemize}
+		\item
+			Gabor says delta f and delta t are the uncertainties inherent in the definition of the epoch t and frequency f of an oscillation
+		\item
+			Just to super emphasize, this is a property of our choice to use the linear Fourier transform. it's not an inherent aspect of acoustic waves or signals, just our choice
+		\item
+			This is a consequence of the Fourier transform, as can be seen in the Flandrin textbook (pointed out by our prof)
+	\end{itemize}
+}
 
 \begin{frame}
 	\frametitle{Time-frequency tradeoff, intuition}
@@ -133,6 +109,80 @@
 \end{frame}
 
 \begin{frame}
+	\frametitle{Consequence of the Fourier transform}
+	\begin{quote}
+	In time-frequency analysis, it has been proven that linear operators cannot exceed the uncertainty bound [...] Nonlinearity does not by itself confer any acuity advantage, and in fact most nonlinearities are merely distortions and thus deleterious. However, by the above theorem, any carefully crafted analysis that can beat this limit must necessarily be nonlinear.\footfullcite{psycho}
+	\end{quote}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Time-frequency tradeoff, visual}
+	Arises from the linearity of the Fourier transform
+	\begin{figure}
+		\centering
+		\subfloat[Unit impulse vs. infinite sine wave\footfullcite{gabor1946}]{\includegraphics[width=4cm]{./gabor1.png}}
+		\hspace{0.2em}
+		\subfloat[Spread of a signal and its Fourier transform are inversely proportional\footfullcite{gabor2}]{\includegraphics[width=5cm]{./gabor3.png}}
+		\caption{Time vs. frequency}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Physical intuitions}
+	\begin{quote}
+		The foregoing solutions [of the Fourier transform], though unquestionably mathematically correct, are somewhat difficult to reconcile with our physical intuitions and our physical concepts of such variable frequency mechanisms as, for instance, the siren
+	\end{quote}
+	-- Carson (quoted by Gabor)
+	\begin{quote}
+	\vspace{2em}
+		Gabor came to the conclusion that the difficulty lay in our mutually exclusive formulations of time analysis and frequency analysis ... he suggested a new method of analyzing signals in which time and frequency play symmetrical parts.\footfullcite{korpel}
+	\end{quote}
+\end{frame}
+
+\note{
+	\begin{itemize}
+		\item
+			this points to the origin of the wavelet and searching for alternative, non-linear representations of time-domain signals
+	\end{itemize}
+}
+
+\begin{frame}
+	\frametitle{Psychoacoustics}
+	Psychoacoustic\footfullcite{psycho} studies have shown that humans can exhibit a better time-frequency resolution than Gabor's limit:
+	\begin{quote}
+		We have conducted the first direct psychoacoustical test of the Fourier uncertainty principle in human hearing, by measuring simultaneous temporal and frequency discrimination. Our data indicate that human subjects often beat the bound prescribed by the uncertainty theorem, by factors in excess of 10.
+	\end{quote}
+	Similarly to how Gabor was dissatisfied with time-frequency's inability to reconcile with physical intuitions:
+	\begin{quote}
+		most sound analysis and processing tools today continue to use models based on spectral theories. We believe it is time to revisit this issue.
+	\end{quote}
+\end{frame}
+
+\note{
+	\begin{itemize}
+		\item
+			In fact its not a defeat of Gabor, its a justification that we need to find better representations -- it actually supports the search for decompositions with non-linear components
+	\end{itemize}
+}
+
+\begin{frame}
+	\frametitle{Psychoacoustics}
+	Brian C. J. Moore in 1973:\footfullcite{moore}
+	\begin{quote}
+		It is concluded that models based on a place (spectral) analysis should be subject to a limitation of the type $\Delta f \dot d \ge \text{constant}$, where $\Delta f$ is the frequency difference limen (DL) for a tone pulse of duration d. [...]  It was found that at short durations the product of $\Delta f$ and d was about one order of magnitude smaller than the minimum predicted from the place model
+	\end{quote}
+\end{frame}
+
+\note{
+	\begin{itemize}
+		\item
+			frequency difference limen is similar to JND
+		\item
+			Consider that some psychoacoustic theories of hearing state that the cochlea does a tonotopic spectral decomposition, making it subject to the limitation
+	\end{itemize}
+}
+
+\begin{frame}
 	\frametitle{Gabor elementary functions}
 	minimizing area of the tf rectangle
 	gaussian-modulated sine waves
@@ -141,7 +191,12 @@
 
 \begin{frame}
 	\frametitle{Gabor elementary functions}
-	relation to shanon
+	show window vs hann
+\end{frame}
+
+\begin{frame}
+	\frametitle{Gabor elementary functions}
+	relation to shannon
 \end{frame}
 
 \begin{frame}
@@ -171,7 +226,8 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Problems with Gabor's atoms}
+	\frametitle{Problems with Gabor}
+	non-orthogonal? infinite gaussian?
 \end{frame}
 
 \end{document}
