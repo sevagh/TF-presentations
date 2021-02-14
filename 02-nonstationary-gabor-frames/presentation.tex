@@ -1,0 +1,229 @@
+\documentclass{beamer}
+\usetheme{Boadilla}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+\usepackage{multicol}
+\usepackage{subfig}
+\usepackage{xcolor}
+\usepackage{optparams}
+\usepackage{xstring}
+\usepackage[
+    backend=biber, 
+    natbib=true,
+    style=numeric,
+    sorting=none,
+    style=verbose-ibid,
+]{biblatex}
+\addbibresource{citations.bib}
+\usepackage{pgfpages}
+\definecolor{ao(english)}{rgb}{0.0, 0.5, 0.0}
+\definecolor{burgundy}{rgb}{0.5, 0.0, 0.13}
+%\setbeameroption{show notes}
+\setbeameroption{show notes on second screen=right}
+%\setbeameroption{hide notes}
+
+\def\footshortciteintern[#1][#2]#3{%
+\ifx#1\empty 
+% Nur Autor
+\footnote{\citeauthor{#3}, \citeyear{#3}.}
+\else
+\ifx#2\empty
+% Autor und Seite
+\footnote{\citeauthor{#3}, \citeyear{#3}, #1.}
+\else
+% Autor, Seite und vgl.
+\expandafter  
+\footnote{\citeauthor{#3}, \citetitle{#3}, \citeyear{#3}, \citeurl{#3}.}
+\fi
+\fi
+}
+\newcommand*\footshortcite{%
+\optparams{\footshortciteintern}{[\empty][\empty]}
+}
+\newcommand*\footmediumcite{%
+\optparams{\footshortciteintern}{[][]}
+}
+
+
+\title{Nonstationary Gabor Frames}
+\author{Sevag Hanssian}
+\date{January 28, 2021}
+\institute{MUMT 622, Winter 2021}
+\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+
+\begin{frame}
+\maketitle
+\end{frame}
+
+\begin{frame}
+	\frametitle{Nonstationary Gabor Frames}
+	\begin{itemize}
+		\item[2002] Multiple Gabor frame system for varying time-frequency resolution analysis of music\footfullcite{doerflerphd}
+		\item[2009] Nonstationary Gabor Frames document in LTFAT\footcite{jaillet}
+		\item[2011] \textbf{Theory, implementation and applications of nonstationary Gabor frames}\footcite{balazs}
+	\end{itemize}
+\end{frame}
+
+\note{
+	\begin{itemize}
+		\item
+			this is not a strict timeline or exhaustive literature review, but some interesting timelines
+		\item
+			Monika D{\"o}rfler's PhD dissertation on gabor, varying TF resolution, music
+		\item
+			frame theory led to a serious solution for a practical, invertible CQT
+	\end{itemize}
+}
+
+\begin{frame}
+	\frametitle{Musical justification for the Constant-Q Transform}
+		Constant-Q transform for music analysis\footfullcite{jbrown}, \footfullcite{msp}:
+		\begin{enumerate}
+			\item
+				Harmonics of the fundamental have consistent spacing in the log scale -- the constant pattern\\
+				\includegraphics[height=3cm]{./logharmonic.png}
+			\item
+				Log-frequency spectra, demonstrating the constant pattern for harmonics, would be more useful in musical tasks
+		\end{enumerate}
+\end{frame}
+
+\note{
+	\begin{itemize}
+		\item
+			judith brown, MSP (of miller s puckette fame)
+		\item
+			constant-Q transform was known about before Gabor frames
+		\item
+			meanwhile the linear spacing of conventional DFT leads to a pattern that varies with the harmonic -- making it harder to identify 
+		\item
+			tasks such as instrument identification by timbre, etc.
+		\item
+			also lines up with pitch perception as pattern recognition
+
+		\item
+			naive approach: just modify the DFT/STFT? but it has too little data at low f, and too much at high frequencies, for a given window size
+	\end{itemize}
+}
+
+\begin{frame}
+	\frametitle{Violin: DFT vs. CQT}
+	\begin{figure}
+		\vspace{-1em}
+		\centering
+		\subfloat[Constant Q transform]{\includegraphics[height=3.75cm]{./violindft.png}}
+		\subfloat[Discrete Fourier Transform]{\includegraphics[height=3.75cm]{./violincqt.png}}
+		\caption{Violin playing diatonic scale, $G_{3} \text{(196Hz)} - G_{5} \text{(784Hz)}$\footfullcite{jbrown}}
+	\end{figure}
+\end{frame}
+
+\note{
+	\begin{itemize}
+		\item
+			Not explicitly named as an STFT but we know it is
+		\item
+			we can see note changes clearly, the fundamental, and even the formant in 3000hz region
+	\end{itemize}
+}
+
+\begin{frame}
+	\frametitle{Refresher: Gabor frames}
+	Gabor's 1946 ``Theory of Communication''\footfullcite{gabor1946}:
+	\begin{enumerate}
+		\item
+			First introduction of the time-frequency uncertainty principle
+		\item
+			Proposed that any signal can be chopped up and windowed with Gaussian functions to minimize TF uncertainty
+	\end{enumerate}
+	    \[ \sigma_{t}\sigma_{f} \ge \frac{1}{4\pi},\qquad\Delta t\Delta f \ge 1 \]
+	\begin{figure}
+		\vspace{-1.5em}
+		\centering
+		\subfloat{\includegraphics[height=3cm]{./tf-resolution2.png}}
+		\hspace{0.35em}
+		\subfloat{\includegraphics[height=3cm]{./tf-resolution.png}}
+		\caption{Max signal localization in TF: rectangles of size $\Delta t\Delta f = 1$}
+	\end{figure}
+\end{frame}
+
+\note{
+	\begin{itemize}
+		\item
+			this material builds on the material from my last presentation
+		\item
+			start with the refresher
+		\item
+			recall that we are constrained to rectangles of this area
+	\end{itemize}
+}
+
+\begin{frame}
+	\frametitle{Fixed TF resolution STFT}
+	MATLAB STFT with gausswin (i.e. Gabor transform)
+	\begin{figure}
+		\centering
+		\subfloat[small window (128)]{{\includegraphics[width=5.04cm]{./gaborstft_small_zoomed.png} }}
+		\subfloat[big window (16384)]{{\includegraphics[width=5.1cm]{./gaborstft_big_zoomed.png} }}
+		\caption{Good time resolution versus good frequency resolution}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Fixed TF resolution for music}
+	\begin{figure}
+		\centering
+		\subfloat{{\includegraphics[width=6cm]{./tf_tradeoff_dorfler.png} }}
+		\subfloat{{\includegraphics[width=3.3cm]{./tf_tradeoff_balasz1.png} }}
+		\caption{Two windows for music signal\footfullcite{doerflerphd} and glockenspiel\footfullcite{jaillet}}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Musical justification for varying TF resolution}
+	\begin{quote}
+		In the case of music signals, for example, transients are important for several reasons. They give important cues for onset timing, and they carry information about instrument timbre. As another example, in low-frequency regions, very fine frequency resolution is required, because notes in this region lay the harmonic basis, musically speaking.\\
+		\vspace{0.4em}
+		In order to achieve a setting adapted to music as discussed above, it will be necessary to use wider windows with good frequency concentration in low-frequency regions, whereas in the high-pass regions, where mainly transients and broadband signals components occur, rather short windows, which don't have to be very localised in frequency, will be of use \footfullcite{doerflerphd}
+	\end{quote}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Stationary Gabor frames}
+	In the standard Gabor analysis, same window function (aka Gabor atom, Gabor function) is shifted in time to cover entire signal\footfullcite{adaptivecqt}:
+	\[ g_{\tau, \omega}(t) = g(t - \tau)e^{2\pi i t \omega} \]
+
+	\begin{columns}
+           \column{0.5\linewidth}
+		\begin{quote}
+			We will indicate such a frame as \textit{stationary}, since the window used for time-frequency shifts does not change and the time-frequency shifts form a lattice of $a\text{ }x\text{ }b$
+		\end{quote}
+          \column{0.5\linewidth}
+		\hspace{-2em}
+		%\vspace{6em}
+	    \centering
+	     \includegraphics[width=4cm]{stationarygabor.png}
+        \end{columns} 
+\end{frame}
+
+\begin{frame}
+	\frametitle{CQT vs. DFT}
+	\begin{figure}
+		\centering
+		\includegraphics[height=3.75cm]{./dftvcqt.png}
+		\caption{Properties of the DFT versus the constant-Q transform\footfullcite{jbrown}}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{CQT implementations}
+	\begin{itemize}
+		\item[2012] Invertible, realtime CQT based on nonstationary Gabor transform\footcite{rtcqt}
+		\item[2018] CQT/ICQT added in MATLAB Wavelet Toolbox\footcite{matlabcqt}
+	\end{itemize}
+	mention alternative: https://librosa.org/doc/latest/generated/librosa.cqt.html
+	2010 klapuri
+\end{frame}
+
+\end{document}
