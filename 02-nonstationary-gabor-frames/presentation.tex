@@ -1,6 +1,8 @@
 \documentclass{beamer}
 \usetheme{Boadilla}
 \usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{shapes,positioning}
 \usepackage{graphicx}
 \usepackage{fancyvrb}
 \usepackage{multicol}
@@ -60,21 +62,35 @@
 
 \begin{frame}
 	\frametitle{Nonstationary Gabor frames}
-	\begin{itemize}
-		\item[2002] Multiple Gabor frame system for varying time-frequency resolution analysis of music\footfullcite{doerflerphd}
-		\item[2009] Nonstationary Gabor frames document in LTFAT\footcite{jaillet}
-		\item[2011] \textbf{Theory, implementation and applications of nonstationary Gabor frames}\footcite{balazs}
-	\end{itemize}
+	\newcounter{year}
+	\begin{tikzpicture}[yscale=0.5,%
+		   year/.style={draw=red,text=blue,fill=yellow!20,shape=ellipse,inner sep=2pt},
+		   description/.style={rectangle,align=left,text width=90mm,anchor=west},
+		   timeline/.style={->,thick,red!50}]
+
+	    \foreach \year/\desc [count=\y] in {%
+		    2002/Multiple Gabor systems for analysis of music\footnotemark,%
+		    2009/Nonstationary Gabor frames\footnotemark,%
+		    2011/\textbf{Theory, implementation and applications of nonstationary Gabor frames}\footnotemark,%
+	       } { \ifnum\y=1 \node[description](\y){\desc};
+		   \else\node[description,below=1ex of \z](\y){\desc};
+		   \fi
+		   \node[year](y-\y) [left=of \y] {\year};
+		   \ifnum\y>1\draw[timeline] (y-\z)-- (y-\y);\fi
+		   \global\let\z=\y% for drawing from last node
+	       }
+	\end{tikzpicture}
+
+	\addtocounter{footnote}{-3} %3=n
+	\stepcounter{footnote}\footnotetext{\cite{doerflerphd}}
+	\stepcounter{footnote}\footnotetext{\cite{balazs}}
+	\stepcounter{footnote}\footnotetext{\cite{jaillet}}
 \end{frame}
 
 \note{
 	\begin{itemize}
 		\item
-			this is not a strict timeline or exhaustive literature review, but some interesting ``family of papers''
-		\item
 			Monika D{\"o}rfler's PhD dissertation on gabor, varying TF resolution, music
-		\item
-			frame theory led to a serious solution for a practical, invertible CQT
 	\end{itemize}
 }
 
@@ -83,14 +99,43 @@
 	\begin{quote}
 		The definition of multiple Gabor frames, which is comprehensively treated in [D{\"o}rfler 2002], provides Gabor frames with analysis techniques with multiple resolutions.\\
 		\vspace{0.5em}
-		The nonstationary Gabor frames (see [Jaillet 2009], [Balazs 2011] for their definition and implementation)  are a further development; they fully exploit theoretical properties of the analysis and synthesis operator, and extend the \textbf{painless} case... they provide for a class of FFT-based algorithms [...] together with perfect reconstruction formulas\footfullcite{adaptivecqt}
+		The nonstationary Gabor frames (see [Jaillet 2009], [Balazs 2011] for their definition and implementation)  are a further development; they fully exploit theoretical properties of the analysis and synthesis operator, and extend the painless case... they provide for a class of FFT-based algorithms [...] together with perfect reconstruction formulas\footfullcite{adaptivecqt}
 	\end{quote}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Invertible Constant-Q Transform}
+	\newcounter{yeartwo}
+	\begin{tikzpicture}[yscale=0.5,%
+		   yeartwo/.style={draw=red,text=blue,fill=yellow!20,shape=ellipse,inner sep=2pt},
+		   description/.style={rectangle,align=left,text width=90mm,anchor=west},
+		   timeline/.style={->,thick,red!50}]
+
+	    \foreach \yeartwo/\desc [count=\y] in {%
+		    ,2011/Invertible constant-Q transform with nonstationary Gabor frames\footnotemark,%
+		    2012/{Invertible, realtime CQT}\footnotemark,%
+		    2013/{Non-stationary Gabor systems, CQT added to LTFAT}\footnotemark,%
+		    2018/{CQT/ICQT added to MATLAB Wavelet Toolbox}\footnotemark%
+	       } { \ifnum\y=1 \node[description](\y){\desc};
+		   \else\node[description,below=1ex of \z](\y){\desc};
+		   \fi
+		   \node[yeartwo](y-\y) [left=of \y] {\yeartwo};
+		   \ifnum\y>1\draw[timeline] (y-\z)-- (y-\y);\fi
+		   \global\let\z=\y% for drawing from last node
+	       }
+	\end{tikzpicture}
+
+	\addtocounter{footnote}{-4} %3=n
+	\stepcounter{footnote}\footnotetext{\cite{invertiblecqt}}
+	\stepcounter{footnote}\footnotetext{\cite{rtcqt}}
+	\stepcounter{footnote}\footnotetext{\cite{ltfat}}
+	\stepcounter{footnote}\footnotetext{\cite{matlabcqt}}
 \end{frame}
 
 \note{
 	\begin{itemize}
 		\item
-			bolded painless because it's an interesting word - i will cover it later
+			frame theory led to a serious solution for a practical, invertible CQT
 	\end{itemize}
 }
 
@@ -173,7 +218,7 @@
 }
 
 \begin{frame}
-	\frametitle{Musical justification for Constant-Q Transform}
+	\frametitle{Early CQT: musical motivation}
 		Constant-Q transform for music analysis\footfullcite{jbrown}, \footfullcite{msp}:
 		\begin{enumerate}
 			\item
@@ -240,7 +285,7 @@
 }
 
 \begin{frame}
-	\frametitle{Musical justification for nonstationary Gabor frames}
+	\frametitle{Multiple Gabor systems: musical motivation}
 	\begin{quote}
 		In the case of music signals, for example, transients are important for several reasons. They give important cues for onset timing, and they carry information about instrument timbre. As another example, in low-frequency regions, very fine frequency resolution is required, because notes in this region lay the harmonic basis, musically speaking.\\
 		\vspace{0.4em}
@@ -282,15 +327,5 @@
 		so with NSGT now, the CQT is revisited and formulated in an invertible way
 	\end{itemize}
 }
-
-\begin{frame}
-	\frametitle{CQT implementations}
-	\begin{itemize}
-		\item[2012] Invertible, realtime CQT based on nonstationary Gabor transform\footcite{rtcqt}
-		\item[2018] CQT/ICQT added in MATLAB Wavelet Toolbox\footcite{matlabcqt}
-	\end{itemize}
-	mention alternative: https://librosa.org/doc/latest/generated/librosa.cqt.html
-	2010 klapuri
-\end{frame}
 
 \end{document}
