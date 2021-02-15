@@ -50,7 +50,7 @@
 
 \title{Nonstationary Gabor frames}
 \author{Sevag Hanssian}
-\date{January 28, 2021}
+\date{Date TBD}
 \institute{MUMT 622, Winter 2021}
 \setbeamertemplate{navigation symbols}{}
 
@@ -83,8 +83,8 @@
 
 	\addtocounter{footnote}{-3} %3=n
 	\stepcounter{footnote}\footnotetext{\cite{doerflerphd}}
-	\stepcounter{footnote}\footnotetext{\cite{balazs}}
 	\stepcounter{footnote}\footnotetext{\cite{jaillet}}
+	\stepcounter{footnote}\footnotetext{\cite{balazs}}
 \end{frame}
 
 \note{
@@ -99,7 +99,7 @@
 	\begin{quote}
 		The definition of multiple Gabor frames, which is comprehensively treated in [D{\"o}rfler 2002], provides Gabor frames with analysis techniques with multiple resolutions.\\
 		\vspace{0.5em}
-		The nonstationary Gabor frames (see [Jaillet 2009], [Balazs 2011] for their definition and implementation)  are a further development; they fully exploit theoretical properties of the analysis and synthesis operator, and extend the painless case... they provide for a class of FFT-based algorithms [...] together with perfect reconstruction formulas\footfullcite{adaptivecqt}
+		The nonstationary Gabor frames (see [Jaillet 2009], [Balazs 2011] for their definition and implementation)  are a further development; they fully exploit theoretical properties [...] they provide for a class of FFT-based algorithms [...] together with perfect reconstruction formulas\footfullcite{adaptivecqt}
 	\end{quote}
 \end{frame}
 
@@ -184,9 +184,8 @@
 	\frametitle{Fixed TF resolution for music}
 	\begin{figure}
 		\centering
-		\subfloat{{\includegraphics[width=6.5cm]{./tf_tradeoff_dorfler.png} }}
-		\subfloat{{\includegraphics[width=3.7cm]{./tf_tradeoff_balasz1.png} }}
-		\caption{Two windows for music signal\footshortcite{doerflerphd} and glockenspiel\footshortcite{jaillet}}
+		\includegraphics[width=7cm]{./tf_tradeoff_dorfler.png}
+		\caption{Two windows for music signal analysis\footshortcite{doerflerphd}}
 	\end{figure}
 \end{frame}
 
@@ -303,28 +302,133 @@
 }
 
 \begin{frame}
-	\frametitle{Nonstationary Gabor frames}
-	\textbf{PAINLESS}
-	In the standard Gabor analysis, same window function (aka Gabor atom, Gabor function) is shifted in time to cover entire signal\footfullcite{adaptivecqt}:
-	\[ g_{\tau, \omega}(t) = g(t - \tau)e^{2\pi i t \omega} \]
-
-	\begin{columns}
-           \column{0.5\linewidth}
-		\begin{quote}
-			We will indicate such a frame as \textit{stationary}, since the window used for time-frequency shifts does not change and the time-frequency shifts form a lattice of $a\text{ }x\text{ }b$
-		\end{quote}
-          \column{0.5\linewidth}
-		\hspace{-2em}
-		%\vspace{6em}
-	    \centering
-	     \includegraphics[width=4cm]{stationarygabor.png}
-        \end{columns} 
+	\frametitle{Multi-window Gabor dictionary}
+	Stationary (discrete) Gabor atom, where $a$ and $b$ are TF shift parameters:
+	\[ g_{m,n}(t) = g(t - na)e^{j2\pi m b t},\qquad m,n \in \mathbb{Z} \]
+	\[ f(t) = \sum_{m,n \in \mathbb{Z}}c_{m,n}g_{m,n}(t) \]
+	Use $R$ different windows, where $a_{r}$ and $b_{r}$ are TF shift parameters for each distinct window:
+	\[ g_{m,n}^{r}(t) = g(t - na_{r})e^{j2\pi m b_{r} t},\qquad m,n \in \mathbb{Z} \]
+	\[ f(t) = \sum_{r=0}^{R-1}\sum_{m,n \in \mathbb{Z}}c^{r}_{m,n}g^{r}_{m,n}(t) \]
 \end{frame}
 
 \note{
 	\begin{itemize}
-	\item
-		so with NSGT now, the CQT is revisited and formulated in an invertible way
+		\item
+			f = signal, constructed from time-frequency shifts of gabor atoms
+	\end{itemize}
+}
+
+\begin{frame}
+	\frametitle{Example: multiple STFTs}
+	\begin{figure}
+		\centering
+		\includegraphics[width=8cm]{./naivemixedstft.png}
+		\caption{Multiple ($R = 2$) Gabor dictionaries with stationary frames}
+	\end{figure}
+\end{frame}
+
+\note{
+	\begin{itemize}
+		\item
+			fulfills musical requirements (good frequency resolution in low-frequency region, good time resolution in high-frequency region)
+		\item
+			highly redundant, overcomplete
+		\item
+			choose appropriate window STFT for each region of interest
+		\item
+			According to the multi-window approach, the dictionary will have high redundancy as it is basically the combination of R complete Gabor dictionaries. Due to the structure of audio signals, it is an appealing idea to reduce this highly redundant dictionary to fit to the special characteristics of these signals.
+	\end{itemize}
+}
+
+\begin{frame}
+	\frametitle{Nonstationary Gabor frame -- resolution changing over time}
+	Stationary (discrete) Gabor atom, where $a$ and $b$ are TF shift parameters:
+	\[ g_{m,n}(t) = g(t - na)e^{j2\pi m b t},\qquad m,n \in \mathbb{Z} \]
+	Nonstationary Gabor atom from a set of functions $\{g_{n}\}$ and a fixed frequency sampling step $b_{n}$\footshortcite{balazs}:
+	\[ g_{m,n}(t) = g_{n}(t)e^{j2\pi m b_{n}t},\qquad m,n \in \mathbb{Z} \]
+	We get back classic nonstationary Gabor frame by setting:
+	\[ g_{n}(t) = g(t - na) \text{ for a fixed time constant } a, b_{n} = b \forall n \]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Nonstationary Gabor frame -- resolution changing over time}
+	\begin{quote}
+		[...] the functions $\{g_{n}\}$ are well-localized and centered around time-points $a_{n}$. This is similar to the standard Gabor scheme [...] with the possibility to vary the window $g_{n}$ for each position $a_{n}$. Thus, sampling of the time-frequency plane is done on a grid which is irregular over time, but regular over frequency at each temporal position.\footshortcite{balazs}
+	\end{quote}
+	\begin{figure}
+		\centering
+		\includegraphics[width=5cm]{./irregulartime.png}
+		\caption{Irregular TF sampling grid}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Nonstationary Gabor frame -- resolution changing over frequency}
+	Stationary (discrete) Gabor atom, where $a$ and $b$ are TF shift parameters:
+	\[ g_{m,n}(t) = g(t - na)e^{j2\pi m b t},\qquad m,n \in \mathbb{Z} \]
+	Nonstationary Gabor atom from a family of functions $\{h_{m}\}$ and a fixed time sampling step $a_{m}$\footshortcite{balazs}:
+	\[ h_{m,n}(t) = h_{m}(t - na_{m}),\qquad m,n \in \mathbb{Z} \]
+	We get back classic nonstationary Gabor frame by setting:
+	\[ h_{m}(t - na_{m}) = g(t - na)e^{j2\pi m b t} \text{ for a fixed frequency constant } b, a_{m} = a \forall m \]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Nonstationary Gabor frame -- resolution changing over frequency}
+	\begin{quote}
+		In practice we will choose each function $h_{m}$ as a well-localized band-pass function with center frequency $b_{n}$\footshortcite{balazs}
+	\end{quote}
+	\begin{figure}
+		\centering
+		\includegraphics[width=5cm]{./irregularfrequency.png}
+		\caption{Irregular TF sampling grid}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Result of nonstationary Gabor decomposition}
+	\begin{figure}
+		\centering
+		\subfloat[Stationary Gabor decomposition for 2 different window sizes]{{\includegraphics[width=3.5cm]{./tf_tradeoff_balasz1.png} }}
+		\hspace{0.5em}
+		\subfloat[Nonstationary Gabor decomposition]{{\includegraphics[width=3.5cm]{./tf_tradeoff_balasz2.png} }}
+		\caption{Best of both worlds in a single representation\footshortcite{jaillet} (glockpenspeil signal)}
+	\end{figure}
+\end{frame}
+
+\note{
+	\begin{itemize}
+		\item
+			i skipped many details proving the invertibility, tightness, minimizing redundancy
+	\end{itemize}
+}
+
+\begin{frame}
+	\frametitle{Applications of NSGT: invertible CQT}
+	\begin{itemize}
+		\item
+			Original CQT\footshortcite{jbrown} is non-invertible and computationally intensive
+		\item
+			Modification\footshortcite{msp} improves computational efficiency
+		\item
+			Previous approach by \citet{klapuri} has an RMS error of $10^{-3}$ from approximate reconstruction (used in librosa)
+			\begin{quote}
+			The lack of perfect invertibility prevents the convenient modification of CQT coefficients with subsequent resynthesis required in complex music processing tasks such as masking or transposition.
+			\end{quote}
+		\item
+			NSGT CQT is faster and perfectly invertible; adaptive resolution in frequency results in desired constant Q-factor
+		\item
+			Drop-in replacement for STFT in music algorithms
+	\end{itemize}
+\end{frame}
+
+\note{
+	\begin{itemize}
+		\item
+			so first its interesting that even today the outcomes of this paper are yet to spread - librosa currently has an unusable CQT!
+		\item
+			the invertible CQT is amazing because it's basically a drop-in replacement of the STFT - you can do time-frequency masking, magnitude/power "spectrogram" equivalent - benefit automatically from the musical considerations baked into the CQT
+		\item
+			talk about fitzgerald source separation
 	\end{itemize}
 }
 
