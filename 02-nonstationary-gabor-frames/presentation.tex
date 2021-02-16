@@ -413,13 +413,15 @@
 	\[ g_{m,n}[k] = g_{n}[k] \cdot e^{\frac{j2\pi m b_{n}k}{L}} = g_{n}[k] \cdot W_{L}^{mb_{n}k} \]
 	\[ n = 0, ..., N-1, m = 0, ..., M_{n}-1, k = 0, ..., L = 1 \]\\
 	\vspace{1em}
-	Nonstationary Gabor coefficients are given by an FFT of length $M_{n}$ for each window $g_{n}$\\
+	Nonstationary Gabor coefficients are given by an FFT of length $M_{n}$ for each window $g_{n}$ with a signal of length $L_{n}$\\
 	\vspace{1em}
 	\begin{enumerate}
 		\item
 			Windowing: $L_{n}$ operations for the $n$th window
 		\item
-			FFT: $O(M_{n} \cdot log(M_{n}))$ for the $n$th window
+			FFT: $O(M_{n} \cdot \log(M_{n}))$ for the $n$th window
+		\item
+			Total: $O(N \cdot (M \log(M)))$ for $N$ windows
 	\end{enumerate}
 \end{frame}
 
