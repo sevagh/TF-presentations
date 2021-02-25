@@ -22,8 +22,8 @@
 \definecolor{ao(english)}{rgb}{0.0, 0.5, 0.0}
 \definecolor{burgundy}{rgb}{0.5, 0.0, 0.13}
 %\setbeameroption{show notes}
-\setbeameroption{show notes on second screen=right}
-%\setbeameroption{hide notes}
+%\setbeameroption{show notes on second screen=right}
+\setbeameroption{hide notes}
 
 \def\footshortciteintern[#1][#2]#3{%
 \ifx#1\empty 
@@ -50,7 +50,7 @@
 
 \title{Nonstationary Gabor frames}
 \author{Sevag Hanssian}
-\date{Date TBD}
+\date{February 25, 2021}
 \institute{MUMT 622, Winter 2021}
 \setbeamertemplate{navigation symbols}{}
 
@@ -246,8 +246,8 @@
 	\begin{figure}
 		\vspace{-1em}
 		\centering
-		\subfloat[Constant Q transform]{\includegraphics[height=3.75cm]{./violindft.png}}
-		\subfloat[Discrete Fourier Transform]{\includegraphics[height=3.75cm]{./violincqt.png}}
+		\subfloat[Discrete Fourier Transform]{\includegraphics[height=3.75cm]{./violindft.png}}
+		\subfloat[Constant Q transform]{\includegraphics[height=3.75cm]{./violincqt.png}}
 		\caption{Violin playing diatonic scale, $G_{3} \text{(196Hz)} - G_{5} \text{(784Hz)}$\footshortcite{jbrown}}
 	\end{figure}
 \end{frame}
@@ -303,7 +303,7 @@
 
 \begin{frame}
 	\frametitle{Multi-window Gabor dictionary}
-	Stationary (discrete) Gabor atom, where $a$ and $b$ are TF shift parameters:
+	Stationary Gabor atom, where $a$ and $b$ are TF shift parameters:
 	\[ g_{m,n}(t) = g(t - na)e^{j2\pi m b t},\qquad m,n \in \mathbb{Z} \]
 	\[ f(t) = \sum_{m,n \in \mathbb{Z}}c_{m,n}g_{m,n}(t) \]
 	Use $R$ different windows, where $a_{r}$ and $b_{r}$ are TF shift parameters for each distinct window:
@@ -342,7 +342,7 @@
 
 \begin{frame}
 	\frametitle{Nonstationary Gabor frame -- resolution changing over time}
-	Stationary (discrete) Gabor atom, where $a$ and $b$ are TF shift parameters:
+	Stationary Gabor atom, where $a$ and $b$ are TF shift parameters:
 	\[ g_{m,n}(t) = g(t - na)e^{j2\pi m b t},\qquad m,n \in \mathbb{Z} \]
 	Nonstationary Gabor atom from a set of functions $\{g_{n}\}$ and a fixed frequency sampling step $b_{n}$\footshortcite{balazs}:
 	\[ g_{m,n}(t) = g_{n}(t)e^{j2\pi m b_{n}t},\qquad m,n \in \mathbb{Z} \]
@@ -364,7 +364,7 @@
 
 \begin{frame}
 	\frametitle{Nonstationary Gabor frame -- resolution changing over frequency}
-	Stationary (discrete) Gabor atom, where $a$ and $b$ are TF shift parameters:
+	Stationary Gabor atom, where $a$ and $b$ are TF shift parameters:
 	\[ g_{m,n}(t) = g(t - na)e^{j2\pi m b t},\qquad m,n \in \mathbb{Z} \]
 	Nonstationary Gabor atom from a family of functions $\{h_{m}\}$ and a fixed time sampling step $a_{m}$\footshortcite{balazs}:
 	\[ h_{m,n}(t) = h_{m}(t - na_{m}),\qquad m,n \in \mathbb{Z} \]
