@@ -143,7 +143,7 @@
 		\item
 			Elitist-LASSO is the solution $\mathbf{\hat{x}}$ of problem $\mathcal{P}_{1,2}$, using $\mathit{l}_{1,2}$ coefficient penalty. Each coefficient is shrunk individually, but the corresponding threshold depends on its 1D neighborhood; can be understood as an elitist group shrinkage, since most members of a given group are thresholded, and only the \textit{emerging} (or best) coefficients of each group remain, or ``only the best coefficients are chosen per group''\footshortcite{sparsitykowalski2}
 		\item
-			Group-LASSO is the solution $\mathbf{\hat{x}}$ of problem $\mathcal{P}_{2,1}$, using $\mathit{l}_{2,1}$ coefficient penalty. A 1D group of coefficients is either globally retained or discarded. This may be understood as a united group shrinkage, since the same threshold applies to all members of a given group. ``one keeps entire groups of coefficients, namely the most energetic groups''
+			Group-LASSO is the solution $\mathbf{\hat{x}}$ of problem $\mathcal{P}_{2,1}$, using $\mathit{l}_{2,1}$ coefficient penalty. A 1D group of coefficients is either globally retained or discarded. This may be understood as a united group shrinkage, since the same threshold applies to all members of a given group; ``one keeps entire groups of coefficients, namely the most energetic groups''
 	\end{enumerate}
 	E-LASSO promotes sparsity within groups of coefficients instead of sparsity across groups like G-LASSO
 \end{frame}
@@ -213,6 +213,7 @@
 
 \begin{frame}
 	\frametitle{Sparsity and entropy} 
+	Sparsity and entropy are complementary concepts\\\ \\
 	Given a signal $x$, its transform $w$, and probability mass function $p$:
 	\begin{itemize}
 		\item
@@ -222,7 +223,6 @@
 	\end{itemize}
 	For a given signal $x$, the uncertainty (randomness) of its elements defines the compressibility (compactness) of its coefficients $w$ in a given domain\footfullcite{pastor2015mathematics}\\
 
-	Sparsity and entropy are complementary concepts
 \end{frame}
 
 \begin{frame}
